@@ -1,0 +1,31 @@
+	/**
+	 * @see DataObject\#get(int)
+	 */
+	public Object get(int numCol) {
+#foreach($col in $jdoInfo.jdoColInfos)	
+		#if($counter == 0) else #end if (numCol == ${jdoInfo.javaClassName}Desc.${col.javaAttCteName})
+#if(${col.isPrimitif()})
+			return new ${col.nonPrimitifClass}(${col.javaAttName});
+#else
+			return ${col.javaAttName};
+#end
+#end
+		return null;
+	}
+	
+	/**
+	 * @see DataObject\#set(int)
+	 */
+	public void set(int numCol, Object value) {
+#foreach($col in $jdoInfo.jdoColInfos)	
+		#if($counter == 0) } else #end if (numCol == ${jdoInfo.javaClassName}Desc.${col.javaAttCteName}) {
+#if(${col.isPrimitif()})
+			updCol[${jdoInfo.javaClassName}Desc.${col.javaAttCteName}] = 1;
+			${col.javaAttName} = ((${col.nonPrimitifClass}) value).${col.javaAttClass}Value();
+#else
+			${col.javaAttName} = (${col.javaAttClass}) value;
+#end
+		}
+#end
+	}
+ 

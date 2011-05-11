@@ -1,0 +1,56 @@
+package ${jdoInfo.javaPckName}.webapp.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
+#set ($pk="Long")
+#set ($pkname="")
+#foreach($col in ${jdoInfo.jdoColInfos})
+#foreach($colpk in ${jdoInfo.getPk()})
+#if ($colpk.col.equals($col.colName))
+#set ($pk=$util.getClassNameForPrimitive($col.javaAttClass))
+#set ($pkname=$util.getDoNameCreator().attribute2class($col.javaAttName))
+#end
+#end
+#end
+#if ($util.getLength($jdoInfo.getPk()) > 1)
+#set ($pk="${jdoInfo.javaClassName}PK")
+#set ($pkname="${jdoInfo.javaClassName}PK")
+import ${jdoInfo.javaPckName}.pojo.${jdoInfo.javaClassName}.${jdoInfo.javaClassName}PK;
+#end
+import ${jdoInfo.javaPckName}.${jdoInfo.javaClassName}DAO;
+
+/**
+ * <p>Spring controller to delete a ${jdoInfo.javaClassName}</p>
+ * <p>Generated at $date</p>
+ *
+ * @author ${generatorVersion}
+ */
+public class ${jdoInfo.javaClassName}AjaxDeleteController extends AbstractController {
+
+	private ${jdoInfo.javaClassName}DAO ${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}DAO;
+
+	public void set${jdoInfo.javaClassName}DAO(${jdoInfo.javaClassName}DAO ${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}DAO) {
+		this.${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}DAO = ${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}DAO;
+	}
+
+	public ${jdoInfo.javaClassName}DAO get${jdoInfo.javaClassName}DAO() {
+		return this.${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}DAO;
+	}
+
+#parse("${templatePath}/getpkfromrequest.vm")
+
+	@Override
+	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		if (request.getParameter("${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}Id") != null) {
+			${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}DAO.deleteById(getPkFromRequest(request));
+		}
+
+		//TODO: when it will be ajax : return null;
+		return new ModelAndView("redirect:/list${jdoInfo.javaClassName}.html");
+	}
+
+}

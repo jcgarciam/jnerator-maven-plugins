@@ -1,0 +1,14 @@
+#if ($util.getLength($jdoInfo.pk) > 0)
+#foreach($pk in $jdoInfo.pk)
+#set ($pkEntry="${pk.javaAttName}")
+#end
+#end
+<c:if test="${ not empty ${jdoInfo.javaClassName}list}">
+<display:table name="${jdoInfo.javaClassName}list" cellspacing="0" cellpadding="0" requestURI="" 
+    defaultsort="1" id="${jdoInfo.javaClassName}" pagesize="25" class="table" export="true">
+#foreach($col in ${jdoInfo.nonFKColInfos})
+			<display:column property="${col.javaAttName}" escapeXml="true" sortable="true" title="${col.javaAttName}" url="/addupdate${jdoInfo.javaClassName}.html" paramId="${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}Id" paramProperty="${pkEntry}"/>
+#end					
+
+</display:table>		
+</c:if>

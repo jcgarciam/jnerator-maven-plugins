@@ -1,0 +1,19 @@
+	/**
+	 * Two ${jdoInfo.javaClassName} are equals of all their attributes are equals.
+	 * Persistence is not used in this method.
+	 * @param obj Object to compare. Must be an instance of ${jdoInfo.javaClassName}
+	 * @return true if the two object are equals
+	 */
+	public boolean equals(Object obj) {
+		if (! (obj instanceof ${jdoInfo.javaClassName})) return false;
+		${jdoInfo.javaClassName} data = (${jdoInfo.javaClassName}) obj;
+#foreach($col in ${jdoInfo.jdoColInfos})
+#if (${col.isPrimitif()})
+		if (data.${col.javaAttName} != ${col.javaAttName}) return false;
+#else
+		if (data.${col.javaAttName} == null && ${col.javaAttName} != null) return false;
+		else if (! data.${col.javaAttName}.equals(${col.javaAttName})) return false;
+#end
+#end
+		return true;
+	}

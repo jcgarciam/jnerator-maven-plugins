@@ -1,0 +1,69 @@
+#set( $primarykeydone = "false" )
+#foreach($col in ${jdoInfo.jdoColInfos})
+#set( $done = "false" )
+#if ($util.getLength(${jdoInfo.getImportedFk()}) > 0)
+#foreach($colfk in ${jdoInfo.getImportedFk()})
+#foreach($colfk2 in $colfk)
+#if($colfk2.getFkColumnName().equals($col.colName))
+#set( $bdone = "false" )	
+#if ($util.getLength($jdoInfo.getPk()) > 1)
+#foreach($colpk in ${jdoInfo.getPk()})
+#if ($colpk.col.equals($col.colName))
+#set( $bdone = "true" )	
+#end
+#end
+#end
+#if ($bdone=="false")
+#set ($done= "$fks.add($colfk2.fkName)" )
+#if ($done=="true")
+	/**
+	 * Attribute ${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getPkTableName()))}
+	 */
+	 private $util.DoNameCreator.createDoName($colfk2.getPkTableName()) ${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getPkTableName()))};	
+
+#end
+#set( $done = "true" )
+#end
+#end
+#end
+#end
+#end
+#if ($done=="false")
+#if ($util.getLength($jdoInfo.getPk()) > 1)
+#foreach($colpk in ${jdoInfo.getPk()})
+#if ($colpk.col.equals($col.colName))
+#if ($primarykeydone=="false")
+	/**
+	 * Primary key
+	 */
+	private ${jdoInfo.javaClassName}PK ${util.DoNameCreator.class2attribute($jdoInfo.javaClassName)}PK;
+
+#set( $primarykeydone = "true" )
+#end
+#set( $done = "true" )	
+#end
+#end
+#end
+#end
+#if ($done=="false")
+	/**
+	 * Attribute $col.javaAttName.
+	 */
+	private $col.getNonPrimitifClass() $col.javaAttName;
+	
+#end
+#end
+#foreach($colfk in ${jdoInfo.getExportedFk()})
+#set ($fkdone="false")
+#foreach($colfk2 in $colfk)
+#if ($fkdone=="false")
+	/**
+	 * List of $util.DoNameCreator.createDoName($colfk2.getFkTableName())
+	 */
+	private List<$util.DoNameCreator.createDoName($colfk2.getFkTableName())> ${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getFkTableName()))}s = null;
+
+#set ($fkdone="true")
+#end
+#end
+#end
+#set ($done= "$fks.clear()" )

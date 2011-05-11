@@ -1,0 +1,39 @@
+<%@ include file="/common/taglibs.jsp"%>
+#if ($util.getLength($jdoInfo.pk) > 0)
+#foreach($pk in $jdoInfo.pk)
+#set ($pkEntry="${pk.javaAttName}")
+#end
+#end
+	<head>
+		<title><fmt:message key="menu.${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}.title"/></title>
+	    <content tag="heading"><fmt:message key="menu.${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}.title"/></content>
+	    <meta name="menu" content="${jdoInfo.javaClassName}"/>
+	</head>
+<fieldset>
+		<form:form commandName="${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}" action="addupdate${jdoInfo.javaClassName}.html" method="post">
+			<ul>
+#foreach($col in ${jdoInfo.nonFKColInfos})
+				<li><label class="desc" for="${col.javaAttName}">${col.javaAttName}</label><form:errors path="${col.javaAttName}" /><span><form:input cssClass="text medium" path="${col.javaAttName}" id="${col.javaAttName}"/></span></li>
+#end
+#foreach($colfk in ${jdoInfo.getImportedFk()})
+#foreach($colfk2 in $colfk)
+				<li><label class="desc" for="${util.DoNameCreator.class2attribute(${colfk2.pkJavaClassName})}">${util.DoNameCreator.class2attribute(${colfk2.pkJavaClassName})}</label>
+					<form:errors path="${util.DoNameCreator.class2attribute(${colfk2.pkJavaClassName})}" />
+					<span>
+						<form:select path="${util.DoNameCreator.class2attribute(${colfk2.pkJavaClassName})}" id="${util.DoNameCreator.class2attribute(${colfk2.pkJavaClassName})}">
+							<!-- I don't see any way to know which column should be displayed to the user, so you need to do the job yourself here... -->
+							<form:options items="${${colfk2.pkJavaClassName}s}" itemValue="${colfk2.pkJavaAttName}" itemLabel="${colfk2.pkJavaAttName}"/>
+						</form:select>
+					</span>
+				</li>		
+#end
+#end
+<c:if test="${ empty requestScope['${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}'].$pkEntry}">
+				<li><input type="submit" class="button" name="add" value="Add" />&nbsp;<input class="button" type="submit" name="cancel" value="Cancel" /></li>
+</c:if>
+<c:if test="${ not empty requestScope['${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}'].$pkEntry}">
+				<li><input type="submit" class="button" name="update" value="Update" />&nbsp;<input class="button" type="submit" name="cancel" value="Cancel" /></li>
+</c:if>
+			</ul>	
+		</form:form>
+</fieldset>

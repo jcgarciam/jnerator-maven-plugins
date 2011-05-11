@@ -1,0 +1,38 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+
+	<!-- You need to complete the configuration here. This is just a sample, you should use a connection pool -->
+	<property name="connection.url">jdbc:mysql://localhost/e360db</property>
+	<property name="connection.username">e360</property>
+	<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+	<!-- Your database is MySQL 5.1 -->
+	<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+	<!-- You can also use org.hibernate.dialect.MySQL5InnoDBDialect if all your tables are InnoDBs.-->
+	
+	<property name="connection.password">e360</property>
+	<property name="show_sql">true</property>
+	
+	<!-- Remove this property if you use JTA -->
+	<property name="current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>
+		
+	<mapping class="com.jnerator.persistence.persistence.pojo.EventsDefinition" />
+	<mapping class="com.jnerator.persistence.persistence.pojo.Tenants" />
+	<mapping class="com.jnerator.persistence.persistence.pojo.EventParticipantsSurveyTemplate" />
+	<mapping class="com.jnerator.persistence.persistence.pojo.Competencies" />
+	<mapping class="com.jnerator.persistence.persistence.pojo.JobCategories" />
+	<mapping class="com.jnerator.persistence.persistence.pojo.EventParticipantsRespondents" />
+	<mapping class="com.jnerator.persistence.persistence.pojo.EventDashboard" />
+	<mapping class="com.jnerator.persistence.persistence.pojo.EventParticipantsDetail" />
+	<mapping class="com.jnerator.persistence.persistence.pojo.EventParticipantsSurveyTemplateAnswers" />
+	<mapping class="com.jnerator.persistence.persistence.pojo.Relations" />
+	<mapping class="com.jnerator.persistence.persistence.pojo.Behaviors" />
+	<mapping class="com.jnerator.persistence.persistence.pojo.EventParticipants" />
+	<mapping class="com.jnerator.persistence.persistence.pojo.UsersProfile" />
+	<mapping class="com.jnerator.persistence.persistence.pojo.Dimensions" />
+
+	</session-factory>
+</hibernate-configuration>

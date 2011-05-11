@@ -1,0 +1,33 @@
+package $pckName;
+
+import ${pckName}.hibernate.HibernateDAOFactory;
+
+/**
+ * Generated at $date
+ *
+ * @see http://www.hibernate.org/328.html
+ * @author ${generatorVersion}
+ */
+
+public abstract class DAOFactory {
+
+	private static final DAOFactory HIBERNATE = new HibernateDAOFactory();
+
+	public static final DAOFactory DEFAULT = HIBERNATE;
+	
+    /**
+     * Factory method for instantiation of concrete factories.
+     */
+    public static DAOFactory instance(Class factory) {
+        try {
+            return (DAOFactory)factory.newInstance();
+        } catch (Exception ex) {
+            throw new RuntimeException("Couldn't create DAOFactory: " + factory);
+        }
+    }
+	
+#foreach($jdoInfo in ${jdoInfos})	
+	public abstract ${jdoInfo.javaClassName}DAO build${jdoInfo.javaClassName}DAO();
+	
+#end
+}

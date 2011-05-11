@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.jnerator</groupId>
+	<artifactId>jnerator-maven-plugins</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>jnerator-maven-plugins</name>
+	<url>http://maven.apache.org</url>
+	<inceptionYear>2010</inceptionYear>
+	<licenses>
+		<license>
+			<name>Apache License</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+		</license>
+	</licenses>
+	<properties>
+		<jdk.version>1.5</jdk.version>
+	</properties>
+	<scm>
+		<connection>/trunk</connection>
+		<developerConnection>/trunk</developerConnection>
+		<url>/trunk</url>
+	</scm>
+	<modules>
+		<module>jnerator-persistence-maven-plugin</module>
+    <module>jnerator-persistence-maven-plugin-test</module>
+  </modules>
+	<build>
+		<plugins>
+			<plugin>
+				<inherited>true</inherited>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+					<optimize>true</optimize>
+					<debug>true</debug>
+				</configuration>
+			</plugin>			
+		</plugins>
+	</build>
+
+</project>

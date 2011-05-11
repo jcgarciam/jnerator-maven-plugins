@@ -1,0 +1,39 @@
+package ${jdoInfo.javaPckName}.webapp.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.ParameterizableViewController;
+
+import ${jdoInfo.javaPckName}.${jdoInfo.javaClassName}DAO;
+
+/**
+ * <p>Spring controller to diplay list of ${jdoInfo.javaClassName}s</p>
+ * <p>Generated at $date</p>
+ *
+ * @author ${generatorVersion}
+ */
+public class ${jdoInfo.javaClassName}ListController extends ParameterizableViewController {
+
+	private ${jdoInfo.javaClassName}DAO ${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}DAO;
+	
+	public void set${jdoInfo.javaClassName}DAO(${jdoInfo.javaClassName}DAO ${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}DAO) {
+		this.${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}DAO = ${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}DAO;
+	}
+			
+	public ${jdoInfo.javaClassName}DAO get${jdoInfo.javaClassName}DAO() {
+		return this.${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}DAO;
+	}
+			
+	@SuppressWarnings("unchecked")
+	@Override
+	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView modelAndView = super.handleRequestInternal(request, response);
+		
+		modelAndView.addObject("${jdoInfo.javaClassName}list", ${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}DAO.findAll());
+		
+		return modelAndView;
+	}
+
+}

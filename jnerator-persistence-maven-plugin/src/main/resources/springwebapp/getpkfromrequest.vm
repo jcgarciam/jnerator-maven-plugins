@@ -1,0 +1,19 @@
+	private ${pk} getPkFromRequest(HttpServletRequest request) {
+#if ($util.getLength($jdoInfo.getPk()) > 1)
+		//TODO : get composite of the pk in request and return an instance of ${pk}
+		return null;
+#else	
+#if ($pk == "Integer")
+		return Integer.parseInt(request.getParameter("${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}Id"));
+#end
+#if ($pk == "Long")
+		return Long.parseLong(request.getParameter("${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}Id"));
+#end
+#if ($pk == "Short")
+		return Short.parseShort(request.getParameter("${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}Id"));
+#end
+#if ($pk == "String")
+		return text;
+#end
+#end
+	}

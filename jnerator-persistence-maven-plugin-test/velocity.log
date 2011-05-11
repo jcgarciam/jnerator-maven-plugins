@@ -1,0 +1,109 @@
+Mon May 02 23:14:48 ART 2011  [debug] AvalonLogSystem initialized using logfile 'velocity.log'
+Mon May 02 23:14:48 ART 2011   [info] ************************************************************** 
+Mon May 02 23:14:48 ART 2011   [info] Starting Jakarta Velocity v1.4
+Mon May 02 23:14:48 ART 2011   [info] RuntimeInstance initializing.
+Mon May 02 23:14:48 ART 2011   [info] Default Properties File: org/apache/velocity/runtime/defaults/velocity.properties
+Mon May 02 23:14:48 ART 2011   [info] Trying to use logger class org.apache.velocity.runtime.log.AvalonLogSystem
+Mon May 02 23:14:48 ART 2011   [info] Using logger class org.apache.velocity.runtime.log.AvalonLogSystem
+Mon May 02 23:14:48 ART 2011   [info] Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+Mon May 02 23:14:48 ART 2011   [info] Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:48 ART 2011   [info] ClasspathResourceLoader : initialization starting.
+Mon May 02 23:14:48 ART 2011   [info] ClasspathResourceLoader : initialization complete.
+Mon May 02 23:14:48 ART 2011   [info] ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+Mon May 02 23:14:48 ART 2011   [info] Default ResourceManager initialization complete.
+Mon May 02 23:14:48 ART 2011   [info] Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+Mon May 02 23:14:48 ART 2011   [info] Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+Mon May 02 23:14:48 ART 2011   [info] Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+Mon May 02 23:14:48 ART 2011   [info] Loaded System Directive: org.apache.velocity.runtime.directive.Include
+Mon May 02 23:14:48 ART 2011   [info] Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+Mon May 02 23:14:48 ART 2011   [info] Created: 20 parsers.
+Mon May 02 23:14:48 ART 2011   [info] Velocimacro : initialization starting.
+Mon May 02 23:14:48 ART 2011   [info] Velocimacro : adding VMs from VM library template : VM_global_library.vm
+Mon May 02 23:14:48 ART 2011  [error] ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+Mon May 02 23:14:48 ART 2011   [info] Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+Mon May 02 23:14:48 ART 2011   [info] Velocimacro :  VM library template macro registration complete.
+Mon May 02 23:14:48 ART 2011   [info] Velocimacro : allowInline = true : VMs can be defined inline in templates
+Mon May 02 23:14:48 ART 2011   [info] Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+Mon May 02 23:14:48 ART 2011   [info] Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+Mon May 02 23:14:48 ART 2011   [info] Velocimacro : messages on  : VM system will output logging messages
+Mon May 02 23:14:48 ART 2011   [info] Velocimacro : autoload off  : VM system will not automatically reload global library macros
+Mon May 02 23:14:48 ART 2011   [info] Velocimacro : initialization complete.
+Mon May 02 23:14:48 ART 2011   [info] Velocity successfully started.
+Mon May 02 23:14:48 ART 2011   [info] ResourceManager : found ejb3/dataobject.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:48 ART 2011   [info] ResourceManager : found ejb3/variable.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:48 ART 2011   [info] ResourceManager : found ejb3/setter.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:48 ART 2011   [info] ResourceManager : found hibernateejb3dao/hibernatedao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:48 ART 2011   [info] ResourceManager : found hibernateejb3dao/dao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:48 ART 2011   [info] ResourceManager : found ejb3/dataobject.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:48 ART 2011   [info] ResourceManager : found ejb3/variable.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:48 ART 2011   [info] ResourceManager : found ejb3/setter.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:48 ART 2011   [info] ResourceManager : found hibernateejb3dao/hibernatedao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:48 ART 2011   [info] ResourceManager : found hibernateejb3dao/dao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:48 ART 2011   [info] ResourceManager : found ejb3/dataobject.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:48 ART 2011   [info] ResourceManager : found ejb3/variable.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found ejb3/setter.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found hibernateejb3dao/hibernatedao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found hibernateejb3dao/dao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found ejb3/dataobject.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found ejb3/variable.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found ejb3/setter.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found hibernateejb3dao/hibernatedao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found hibernateejb3dao/dao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found ejb3/dataobject.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found ejb3/variable.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found ejb3/setter.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found hibernateejb3dao/hibernatedao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found hibernateejb3dao/dao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found ejb3/dataobject.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found ejb3/variable.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found ejb3/setter.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found hibernateejb3dao/hibernatedao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found hibernateejb3dao/dao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found ejb3/dataobject.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found ejb3/variable.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found ejb3/setter.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found hibernateejb3dao/hibernatedao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found hibernateejb3dao/dao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found ejb3/dataobject.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:49 ART 2011   [info] ResourceManager : found ejb3/variable.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found ejb3/setter.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/hibernatedao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/dao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found ejb3/dataobject.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found ejb3/variable.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found ejb3/setter.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/hibernatedao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/dao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found ejb3/dataobject.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found ejb3/variable.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found ejb3/setter.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/hibernatedao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/dao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found ejb3/dataobject.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found ejb3/variable.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found ejb3/setter.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/hibernatedao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/dao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found ejb3/dataobject.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found ejb3/variable.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found ejb3/setter.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/hibernatedao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/dao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found ejb3/dataobject.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found ejb3/variable.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found ejb3/setter.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/hibernatedao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/dao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found ejb3/dataobject.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found ejb3/variable.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found ejb3/setter.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/hibernatedao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/dao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/hibernatedaofactory.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/hibernatedaofactory.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/daofactory.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/abstracthibernatedao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/common-abstracthibernatedao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/genericdao.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/hibernateutil.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+Mon May 02 23:14:50 ART 2011   [info] ResourceManager : found hibernateejb3dao/hibernate.cfg.xml.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader

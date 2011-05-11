@@ -1,0 +1,46 @@
+package ${pckName}.hibernate;
+
+import ${pckName}.GenericDAO;
+import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.Criteria;
+import org.hibernate.FlushMode;
+import org.hibernate.Query;
+import org.hibernate.LockMode;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Example;
+
+/**
+ * Generated at $date
+ *
+ * @author ${generatorVersion}
+ * @see http://www.hibernate.org/328.html
+ */
+public abstract class AbstractHibernateDAO<T, ID extends Serializable> implements GenericDAO<T, ID> {
+
+	private Session session;
+
+	private Class<T> persistentClass;
+
+	public AbstractHibernateDAO() {
+		this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+	}
+
+    public void setSession(Session session) {
+		this.session = session;
+	}
+
+	protected Session getSession() {
+		if (session == null)
+           session = HibernateUtil.getSessionFactory().getCurrentSession();
+       return session;
+    }
+
+#parse("${templatePath}/common-abstracthibernatedao.vm")
+	
+}

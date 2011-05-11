@@ -1,0 +1,139 @@
+package ${jdoInfo.javaPckName}.webapp.controller;
+
+#if ($util.getLength(${jdoInfo.getImportedFk()}) > 0)
+import java.util.Map;
+import org.springframework.ui.ModelMap;
+#foreach($colfk in ${jdoInfo.getImportedFk()})
+#foreach($colfk2 in $colfk)
+import ${jdoInfo.javaPckName}.${colfk2.pkJavaClassName}DAO;
+#end
+#end	
+
+#end
+#set ($pk="Long")
+#set ($pkname="")
+#foreach($col in ${jdoInfo.jdoColInfos})
+#foreach($colpk in ${jdoInfo.getPk()})
+#if ($colpk.col.equals($col.colName))
+#set ($pk=$util.getClassNameForPrimitive($col.javaAttClass))
+#set ($pkname=$util.getDoNameCreator().attribute2class($col.javaAttName))
+#end
+#end
+#end
+#if ($util.getLength($jdoInfo.getPk()) > 1)
+#set ($pk="${jdoInfo.javaClassName}PK")
+#set ($pkname="${jdoInfo.javaClassName}PK")
+import ${jdoInfo.javaPckName}.pojo.${jdoInfo.javaClassName}.${jdoInfo.javaClassName}PK;
+#end
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.servlet.mvc.SimpleFormController;
+
+import ${jdoInfo.javaPckName}.${jdoInfo.javaClassName}DAO;
+import ${jdoInfo.javaPckName}.pojo.${jdoInfo.javaClassName};
+
+#foreach($colfk in ${jdoInfo.getImportedFk()})
+#foreach($colfk2 in $colfk)
+import ${jdoInfo.javaPckName}.pojo.${colfk2.pkJavaClassName};
+import ${jdoInfo.javaPckName}.webapp.editor.${colfk2.pkJavaClassName}EditorSupport;
+#end
+#end
+
+/**
+ * <p>Spring controller to search for ${jdoInfo.javaClassName}s</p>
+ * <p>Generated at $date</p>
+ *
+ * @author ${generatorVersion}
+ */
+public class ${jdoInfo.javaClassName}SearchController extends SimpleFormController {
+
+	private ${jdoInfo.javaClassName}DAO ${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}DAO;
+
+#foreach($colfk in ${jdoInfo.getImportedFk()})
+#foreach($colfk2 in $colfk)
+	private ${colfk2.pkJavaClassName}DAO ${util.DoNameCreator.class2attribute(${colfk2.pkJavaClassName})}DAO;
+
+	public void set${colfk2.pkJavaClassName}DAO(${colfk2.pkJavaClassName}DAO ${util.DoNameCreator.class2attribute(${colfk2.pkJavaClassName})}DAO) {
+		this.${util.DoNameCreator.class2attribute(${colfk2.pkJavaClassName})}DAO = ${util.DoNameCreator.class2attribute(${colfk2.pkJavaClassName})}DAO;
+	}
+
+	public ${colfk2.pkJavaClassName}DAO get${colfk2.pkJavaClassName}DAO() {
+		return this.${util.DoNameCreator.class2attribute(${colfk2.pkJavaClassName})}DAO;
+	}
+	
+#end
+#end	
+	public void set${jdoInfo.javaClassName}DAO(${jdoInfo.javaClassName}DAO ${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}DAO) {
+		this.${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}DAO = ${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}DAO;
+	}
+
+	public ${jdoInfo.javaClassName}DAO get${jdoInfo.javaClassName}DAO() {
+		return this.${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}DAO;
+	}
+
+#if ($util.getLength(${jdoInfo.getImportedFk()}) > 0)
+	@Override
+	protected Map referenceData(HttpServletRequest request) throws Exception {
+		ModelMap modelMap = new ModelMap();
+#foreach($colfk in ${jdoInfo.getImportedFk()})
+#foreach($colfk2 in $colfk)
+		modelMap.addObject("${colfk2.pkJavaClassName}s",  ${util.DoNameCreator.class2attribute(${colfk2.pkJavaClassName})}DAO.findAll()); 
+#end
+#end		
+		return modelMap;
+	}
+	
+#end
+
+#parse("${templatePath}/getpkfromrequest.vm")	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.springframework.web.servlet.mvc.AbstractFormController#formBackingObject(javax.servlet.http.HttpServletRequest)
+	 */
+	@Override
+	protected Object formBackingObject(HttpServletRequest request) throws Exception {
+
+		${jdoInfo.javaClassName} ${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})} = null;
+		if (request.getParameter("${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}Id") != null) {
+			${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})} = ${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}DAO.getById(getPkFromRequest(request));
+		} else {
+			${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})} = new ${jdoInfo.javaClassName}();
+		}
+
+		return ${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})};
+	}
+
+	/* (non-Javadoc)
+	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.validation.BindException)
+	 */
+	@Override
+	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException bindException) throws Exception {
+		
+		ModelAndView modelAndView = super.onSubmit(request, response, command, bindException);
+		
+		modelAndView.addObject("${jdoInfo.javaClassName}list", ${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}DAO.findByExample((${jdoInfo.javaClassName}) command, new String[0]));
+		
+		modelAndView.addAllObjects(this.referenceData(request));
+		
+		return modelAndView;
+	}
+	
+		@Override
+	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
+		
+		super.initBinder(request, binder);
+#foreach($colfk in ${jdoInfo.getImportedFk()})
+#foreach($colfk2 in $colfk)
+		binder.registerCustomEditor(${colfk2.pkJavaClassName}.class, new ${colfk2.pkJavaClassName}EditorSupport());
+#end
+#end
+
+	}
+
+}

@@ -1,0 +1,23 @@
+	/**
+	 * @see DataObject\#getProperty(SqlArg)
+	 */
+	public void getProperty(SqlArg sqlArg) throws SQLException {
+		getProperty(sqlArg, this);
+	} 
+	
+	/**
+	 * @see DataObject\#getProperty(SqlArg)
+	 */
+	protected static void getProperty(SqlArg sqlArg, ${jdoInfo.javaClassName} data) throws SQLException {
+		PreparedStatement stmt = sqlArg.getStmt();
+		int[] val = sqlArg.getVal();
+#foreach($col in $jdoInfo.jdoColInfos)	
+		if (val[${jdoInfo.javaClassName}Desc.${col.javaAttCteName}] > 0) {
+#if ($col.isPrimitif())
+			DataObjectUtil.${util.getStmtMethod($col)}(stmt, val[${jdoInfo.javaClassName}Desc.${col.javaAttCteName}], data.${col.javaAttName});
+#else
+			DataObjectUtil.${util.getStmtMethod($col)}(stmt, val[${jdoInfo.javaClassName}Desc.${col.javaAttCteName}], data.${col.javaAttName}, Types.${col.colTypName});
+#end
+		}
+#end
+	 }

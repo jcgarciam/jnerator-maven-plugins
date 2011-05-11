@@ -1,0 +1,26 @@
+package ${pckName}.hibernate;
+
+import ${pckName}.DAOFactory;
+#foreach($jdoInfo in ${jdoInfos})
+import ${pckName}.${jdoInfo.javaClassName}DAO;
+#end	
+
+/**
+ * Generated at $date
+ *
+ * @see http://www.hibernate.org/43.html
+ * @author ${generatorVersion}
+ */
+public class HibernateDAOFactory extends DAOFactory {
+
+#foreach($jdoInfo in ${jdoInfos})
+	/* (non-Javadoc)
+	 * @see ${jdoInfo.javaPckName}.DAOFactory#build${jdoInfo.javaClassName}DAO()
+	 */
+	@Override
+	public ${jdoInfo.javaClassName}DAO build${jdoInfo.javaClassName}DAO() {
+		return new ${jdoInfo.javaClassName}HibernateDAO();
+	}
+	
+#end	
+}

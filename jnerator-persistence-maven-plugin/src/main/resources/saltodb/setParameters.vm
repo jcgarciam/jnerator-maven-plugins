@@ -1,0 +1,76 @@
+	/**
+	 * @see DataObject\#setParameters(HttpServletRequest)
+	 */
+	public DataObject[] setParameters(HttpServletRequest request) 
+	throws ParameterException, java.text.ParseException {
+		return setParams(request);
+	}
+	
+	/**
+	 * @see DataObject\#setParameters(HttpServletRequest)
+	 */
+	public ${jdoInfo.javaClassName}[] setParams(HttpServletRequest request) 
+	throws ParameterException, java.text.ParseException {
+		String[] params = null;
+		String localVal = null;
+		ParameterException exception = new ParameterException();
+		${jdoInfo.javaClassName}[] result = null;
+#foreach($col in $jdoInfo.jdoColInfos)	
+		params = request.getParameterValues("${col.javaAttName}");
+#if (${col.javaAttClass} == "Timestamp")
+		if (params == null) params = SetParametersUtil.getDateValue(request, "${col.javaAttName}");
+#end
+		if (params != null) {
+			result = createResult(params, result);
+			for (int i = 0; i < params.length; i++) {
+				localVal = SetParametersUtil.createLocalVar(params, i);
+#if (${col.javaAttClass} == "String")
+				result[i].${col.javaAttName} = localVal;
+#elseif (${util.setParamMethod($col)})
+				result[i].${col.javaAttName} = SetParametersUtil.${util.setParamMethod($col)}("${col.javaAttName}", localVal, exception);
+#end
+				result[i].updCol[${jdoInfo.javaClassName}Desc.${col.javaAttCteName}] = 1;
+			}
+		}
+#end
+		if (exception.hasError()) throw exception;
+		return result;
+ 	}
+ 	/**
+	 * Create an array of result depending on input parameters.
+	 * @param params array of parameters
+	 * @param data already created data
+	 * @return a new array of ${jdoInfo.javaClassName}
+	 */
+	protected ${jdoInfo.javaClassName}[] createResult(String[] params, ${jdoInfo.javaClassName}[] data) {
+		if (data != null) return data;
+		try {
+			int size = params.length;
+			data = getInstance(size);
+			for (int i = 0; i < size; i++) {
+				data[i] = getInstance();
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("Erreur while creating ${jdoInfo.javaClassName}", e);
+		}
+		return data;
+	}
+	
+	/**
+	 * Return an array of new DataObjects instances.
+	 * You need to override this method if you override the DataObject.
+	 * @param nbVal number of instance. Size of the returned array.
+	 * @return new array of DataObjects
+	 */
+	protected ${jdoInfo.javaClassName}[] getInstance(int nbVal) {
+		return new ${jdoInfo.javaClassName}[nbVal];
+	}
+
+	/**
+	 * Return a new DataObject instance.
+	 * You need to override this method if you override the DataObject.
+	 * @return une nouvelle instance du do
+	 */
+	protected ${jdoInfo.javaClassName} getInstance() {
+		return new ${jdoInfo.javaClassName}();
+	}
