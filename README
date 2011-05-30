@@ -1,14 +1,10 @@
 This is project aims to provide generators as maven plugins, to speed up developments.
 
-Initial generator is a forked from the discontinued project SaltoDB at (http://salto-db.sourceforge.net/salto-db-generator/index.html). The idea is to provide the same supported generator as Maven plugins under the name <strong>jnerator-persistence-maven-plugin</strong> targeting the following artifacts :
-<div>
- <ul>
-  <li>Salto-db (inherited from original source code</li>
-  <li>EJB3</li>
-  <li>Hibernate</li>
-  <li>EJB3 and Hibernate DAOs</li>
-  <li>EJB3, Hibernate DAOs and Junit tests</li>
-  <li>Pojos and Hibernate DAOs</li>
- </ul>
-</div>
+Initial generator is a forked from the discontinued project SaltoDB at (http://salto-db.sourceforge.net/salto-db-generator/index.html). The idea is to provide the same supported generator as Maven plugins under the name 'jnerator-persistence-maven-plugin' targeting the following artifacts :
 
+  - Salto-db (inherited from original source code
+  - EJB3
+  - Hibernate
+  - EJB3 and Hibernate DAOs
+  - EJB3, Hibernate DAOs and Junit tests
+  - Pojos and Hibernate DAOs
