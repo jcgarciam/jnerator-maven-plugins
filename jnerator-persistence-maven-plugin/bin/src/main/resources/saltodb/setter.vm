@@ -1,0 +1,19 @@
+#foreach($col in ${jdoInfo.jdoColInfos})
+	/**
+	 * retourne ${col.javaAttName}
+	 * @return ${col.javaAttName}
+	 */
+	public $col.javaAttClass ${col.getterMethod()}() {
+		return ${col.javaAttName};
+	}
+
+	/**
+	 * update ${col.javaAttName}
+	 * @param ${col.javaAttName} new value
+	 */
+	public void ${col.setterMethod()}(${col.javaAttClass} ${col.javaAttName}) {
+		updCol[${jdoInfo.javaClassName}Desc.${col.javaAttCteName}] = 1;
+		this.${col.javaAttName} = ${col.javaAttName};
+	}
+#end
+

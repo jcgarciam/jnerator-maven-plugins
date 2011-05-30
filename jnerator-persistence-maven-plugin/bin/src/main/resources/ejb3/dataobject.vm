@@ -1,0 +1,184 @@
+package ${jdoInfo.javaPckName};
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+#if ($annotations=="true")
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+import javax.persistence.Embeddable;
+#end
+
+/**
+#if ($jdoInfo.tableShem)
+ * <p>Pojo mapping ${jdoInfo.tableType} ${jdoInfo.tableShem}.${jdoInfo.tableName}</p>
+#else
+ * <p>Pojo mapping ${jdoInfo.tableType} ${jdoInfo.tableName}</p>
+#end
+#if ($jdoInfo.getTableRemarks())
+ * <p>${jdoInfo.getTableRemarks()}</p>
+#end
+ *
+ * <p>Generated at $date</p>
+ * @author ${generatorVersion}
+ * 
+ */
+#if ($annotations=="true")
+@Entity
+#if ($jdoInfo.tableCat)
+#if ($jdoInfo.tableShem)
+@Table(name = "${jdoInfo.tableName}", catalog = "${jdoInfo.tableCat}", schema = "${jdoInfo.tableShem}")
+#else
+@Table(name = "${jdoInfo.tableName}", catalog = "${jdoInfo.tableCat}")
+#end
+#else
+#if ($jdoInfo.tableShem)
+@Table(name = "${jdoInfo.tableName}", schema = "${jdoInfo.tableShem}")
+#else
+@Table(name = "${jdoInfo.tableName}")
+#end
+#end
+@SuppressWarnings("serial")
+#end
+public class ${jdoInfo.javaClassName} implements Serializable {
+
+#parse("${templatePath}/variable.vm")
+	
+#parse("${templatePath}/setter.vm")
+
+#if ($util.getLength($jdoInfo.getPk()) > 1)
+	/**
+	#if ($jdoInfo.tableShem)
+	  * <p>Composite primary key for table ${jdoInfo.tableShem}.${jdoInfo.tableName}</p>
+#else
+	  * <p>Composite primary key for table ${jdoInfo.tableName}</p>
+#end
+ 	  *
+ 	  * <p>Generated at $date</p>
+ 	  * @author ${generatorVersion}
+ 	  */
+#if ($annotations=="true")
+	@SuppressWarnings("serial")
+	@Embeddable
+#end
+	public static class ${jdoInfo.javaClassName}PK implements Serializable {
+
+#foreach($col in ${jdoInfo.jdoColInfos})
+#foreach($colpk in ${jdoInfo.getPk()})
+#if ($colpk.col.equals($col.colName))
+#set( $aadone = "false" )
+#if ($util.getLength(${jdoInfo.getImportedFk()}) > 0)
+#foreach($colfk in ${jdoInfo.getImportedFk()})
+#foreach($colfk2 in $colfk)
+#if($colfk2.getFkColumnName().equals($col.colName))
+		/**
+		 * Attribute ${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getPkTableName()))}
+		 */
+		 private $util.DoNameCreator.createDoName($colfk2.getPkTableName()) ${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getPkTableName()))};	
+
+#set( $aadone = "true" )
+#end
+#end
+#end
+#end
+#if ($aadone=="false")
+		/**
+		 * Attribute ${col.javaAttName}
+		 */
+		private ${col.javaAttClass} $col.javaAttName;
+#end
+
+#end
+#end
+#end
+#foreach($col in ${jdoInfo.jdoColInfos})
+#foreach($colpk in ${jdoInfo.getPk()})
+#if ($colpk.col.equals($col.colName))
+#set( $aadone = "false" )
+#if ($util.getLength(${jdoInfo.getImportedFk()}) > 0)
+#foreach($colfk in ${jdoInfo.getImportedFk()})
+#foreach($colfk2 in $colfk)
+#if($colfk2.getFkColumnName().equals($col.colName))
+	/**
+	 * get ${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getPkTableName()))}
+	 */
+#if ($annotations=="true")
+			@ManyToOne
+			@JoinColumn(name = "$col.colName")
+#end
+			public ${util.DoNameCreator.createDoName($colfk2.getPkTableName())} get${util.DoNameCreator.createDoName($colfk2.getPkTableName())}() {
+				return this.${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getPkTableName()))};
+			}
+			
+			/**
+			 * set ${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getPkTableName()))}
+			 */
+			public void set${util.DoNameCreator.createDoName($colfk2.getPkTableName())}(${util.DoNameCreator.createDoName($colfk2.getPkTableName())} ${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getPkTableName()))}) {
+				this.${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getPkTableName()))} = ${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getPkTableName()))};
+			}		
+#set( $aadone = "true" )
+#end
+#end
+#end
+#end
+#if ($aadone=="false")
+		/**
+		 * Return ${col.javaAttName}
+		 */
+#if ($annotations=="true")
+		@Column(name = "$col.colName")
+#end
+		public $col.javaAttClass ${col.getterMethod()}() {
+			return ${col.javaAttName};
+		}
+
+		/**
+		 * @param ${col.javaAttName} new value for ${col.javaAttName} 
+		 */
+		public void ${col.setterMethod()}(${col.javaAttClass} ${col.javaAttName}) {
+			this.${col.javaAttName} = ${col.javaAttName};
+		}
+#end
+#end
+#end
+#end
+
+		/**
+		 * calculate hashcode
+		 */
+#if ($annotations=="true")
+		@Override
+#end
+		public int hashCode()
+		{
+			//TODO : implement this method
+			return super.hashCode();
+		}
+
+		/**
+		 * equals method
+		 */
+#if ($annotations=="true")
+		@Override
+#end
+		public boolean equals(Object object)
+		{
+			//TODO : implement this method
+			return super.equals(object);
+		}
+
+	}
+#end
+
+}

@@ -1,0 +1,59 @@
+package ${jdoInfo.javaPckName}.webapp.editor;
+
+import java.beans.PropertyEditorSupport;
+
+import ${jdoInfo.javaPckName}.pojo.${jdoInfo.javaClassName};
+#if ($util.getLength($jdoInfo.pk) > 0)
+#foreach($pk in $jdoInfo.pk)
+#set ($pkEntry="${pk.javaAttName}")
+#end
+#end
+#set ($pk="Long")
+#set ($pkname="")
+#foreach($col in ${jdoInfo.jdoColInfos})
+#foreach($colpk in ${jdoInfo.getPk()})
+#if ($colpk.col.equals($col.colName))
+#set ($pk=$util.getClassNameForPrimitive($col.javaAttClass))
+#set ($pkname=$util.getDoNameCreator().attribute2class($col.javaAttName))
+#end
+#end
+#end
+#if ($util.getLength($jdoInfo.getPk()) > 1)
+#set ($pk="${jdoInfo.javaClassName}PK")
+#set ($pkname="${jdoInfo.javaClassName}PK")
+import ${jdoInfo.javaPckName}.pojo.${jdoInfo.javaClassName}.${jdoInfo.javaClassName}PK;
+#end
+
+/**
+ * <p>PropertyEditorSupport for ${jdoInfo.javaClassName}s</p>
+ * <p>Generated at $date</p>
+ *
+ * @author ${generatorVersion}
+ */
+public class ${jdoInfo.javaClassName}EditorSupport extends PropertyEditorSupport {
+
+	private ${pk} getPkFromString(String text) {
+#if ($util.getLength($jdoInfo.getPk()) > 1)
+		//TODO : get composite of the pk in request and return an instance of ${pk}
+		return null;
+#else	
+#if ($pk == "Integer")
+		return Integer.parseInt(text);
+#end
+#if ($pk == "Long")
+		return Long.parseLong(text);
+#end
+#if ($pk == "String")
+		return text;
+#end
+#end
+	}
+
+	public void setAsText(String text) throws IllegalArgumentException {
+
+		${jdoInfo.javaClassName} ${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})} = new ${jdoInfo.javaClassName}();
+		${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}.set${util.DoNameCreator.attribute2class(${pkEntry})}(getPkFromString(text));
+		setValue(${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})});
+	}
+
+}

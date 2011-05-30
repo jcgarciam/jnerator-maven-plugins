@@ -1,0 +1,273 @@
+package ${jdoInfo.javaPckName}.test;
+
+import junit.framework.TestCase;
+import java.util.List;
+import java.sql.Timestamp;
+
+import ${jdoInfo.javaPckName}.DAOFactory;
+import ${jdoInfo.javaPckName}.pojo.${jdoInfo.javaClassName};
+import ${jdoInfo.javaPckName}.${jdoInfo.javaClassName}DAO;
+#set ($pk="Long")
+#set ($pkname="")
+#foreach($col in ${jdoInfo.jdoColInfos})
+#foreach($colpk in ${jdoInfo.getPk()})
+#if ($colpk.col.equals($col.colName))
+#set ($pk=$util.getClassNameForPrimitive($col.javaAttClass))
+#set ($pkname=$util.getDoNameCreator().attribute2class($col.javaAttName))
+#end
+#end
+#end
+#if ($util.getLength($jdoInfo.getPk()) > 1)
+#set ($pk="${jdoInfo.javaClassName}PK")
+#set ($pkname="${jdoInfo.javaClassName}PK")
+import ${jdoInfo.javaPckName}.pojo.${jdoInfo.javaClassName}.${jdoInfo.javaClassName}PK;
+#end
+
+/**
+ * <p>Unit test for ${jdoInfo.javaPckName}.${jdoInfo.javaClassName}DAO</p>
+ * <p>Generated at $date</p>
+ *
+ * @author ${generatorVersion}
+ */
+public class ${jdoInfo.javaClassName}DAOTest extends TestCase {
+
+	private ${jdoInfo.javaClassName}DAO dao;
+
+#if ($pkname!="")
+	private $pk existingId;
+#end
+
+	private ${jdoInfo.javaClassName} testEntity${jdoInfo.javaClassName};
+	
+#if ($util.getLength($jdoInfo.getPk()) > 1)
+#foreach($col in ${jdoInfo.jdoColInfos})
+#set ($ispk="false")
+#foreach($colpk in ${jdoInfo.getPk()})
+#if ($colpk.col.equals($col.colName))
+#set ($ispk="true")
+#end
+#end
+#set ($isfk="false")
+#foreach($colfk in ${jdoInfo.getImportedFk()})
+#foreach($colfk2 in $colfk)
+#if($colfk2.getFkColumnName().equals($col.colName))
+#set ($isfk="true")
+		private ${col.javaAttClass} test$util.getDoNameCreator().attribute2class($col.javaAttName);
+	
+#end
+#end
+#end
+#if ($isfk=="false" && $ispk=="false")
+		private ${col.javaAttClass} test$util.getDoNameCreator().attribute2class($col.javaAttName);
+
+#else
+#if ($ispk=="true" && $isfk=="false")
+		private ${col.javaAttClass} test$util.getDoNameCreator().attribute2class($col.javaAttName);
+#end
+#end	
+#end
+#else
+#foreach($col in ${jdoInfo.jdoColInfos})
+#set ($ispk="false")
+#foreach($colpk in ${jdoInfo.getPk()})
+#if ($colpk.col.equals($col.colName))
+#set ($ispk="true")
+#end
+#end
+#set ($isfk="false")
+#foreach($colfk in ${jdoInfo.getImportedFk()})
+#foreach($colfk2 in $colfk)
+#if($colfk2.getFkColumnName().equals($col.colName))
+#set ($isfk="true")
+	private ${col.javaAttClass} test$util.getDoNameCreator().attribute2class($col.javaAttName);
+	
+#end
+#end
+#end
+#if ($ispk=="false" && $isfk=="false")
+	private ${col.javaAttClass} test$util.getDoNameCreator().attribute2class($col.javaAttName);
+	
+#end
+#end
+#end	
+	
+	public void setUp() throws Exception {
+		set${jdoInfo.javaClassName}DAO(DAOFactory.DEFAULT.build${jdoInfo.javaClassName}DAO());
+#if ($pkname!="")	
+		//TODO: call setExistingId() with an id that exists in database
+#end
+		//TODO: call setTest${jdoInfo.javaClassName}() with an ${jdoInfo.javaClassName} instance
+	}
+	
+	public void tearDown() {
+#if ($pkname!="")	
+        existingId = null;
+#end
+        dao = null;
+        testEntity${jdoInfo.javaClassName} = null;
+    }
+
+	public void set${jdoInfo.javaClassName}DAO(${jdoInfo.javaClassName}DAO dao) {
+		this.dao = dao;
+	}
+
+	public ${jdoInfo.javaClassName}DAO get${jdoInfo.javaClassName}DAO() {
+		return this.dao;
+	}
+	
+#if ($pkname!="")		
+	public void setExistingId(${pk} id) {
+		this.existingId = id;
+	}
+
+	public ${pk} getExistingId() {
+		return this.existingId;
+	}
+#end
+
+	public ${jdoInfo.javaClassName} getTestEntity${jdoInfo.javaClassName}() {
+		return testEntity${jdoInfo.javaClassName};
+	}
+
+	public void setTestEntity${jdoInfo.javaClassName}(${jdoInfo.javaClassName} testEntity${jdoInfo.javaClassName}) {
+		this.testEntity${jdoInfo.javaClassName} = testEntity${jdoInfo.javaClassName};
+	}
+
+	public void testGetById() {
+#if ($pkname!="")	
+		${jdoInfo.javaClassName} test = dao.getById(existingId);
+        assertNotNull(test);
+#end
+	}
+
+	public void testFindAll() {
+		List<${jdoInfo.javaClassName}> all = dao.findAll();
+		assertNotNull(all);
+		assertFalse(all.isEmpty());
+	}
+
+	public void testSaveAndRemove() {
+#if ($pkname!="")	
+		dao.save(testEntity${jdoInfo.javaClassName});
+		${jdoInfo.javaClassName} test = dao.getById(testEntity${jdoInfo.javaClassName}.get${pkname}());
+        assertNotNull(testEntity${jdoInfo.javaClassName}.get${pkname}());
+        assertNotNull(test);
+        dao.delete(testEntity${jdoInfo.javaClassName});
+		test = dao.getById(testEntity${jdoInfo.javaClassName}.get${pkname}());
+        assertNull(test);
+#end        
+	}
+
+#if ($util.getLength($jdoInfo.getPk()) > 1)
+#foreach($col in ${jdoInfo.jdoColInfos})
+#set ($ispk="false")
+#foreach($colpk in ${jdoInfo.getPk()})
+#if ($colpk.col.equals($col.colName))
+#set ($ispk="true")
+#end
+#end
+#set ($isfk="false")
+#foreach($colfk in ${jdoInfo.getImportedFk()})
+#foreach($colfk2 in $colfk)
+#if($colfk2.getFkColumnName().equals($col.colName))
+#set ($isfk="true")
+	public ${col.javaAttClass} getTest$util.getDoNameCreator().attribute2class($col.javaAttName)() {
+		return test$util.getDoNameCreator().attribute2class($col.javaAttName);
+	}
+
+	public void setTest$util.getDoNameCreator().attribute2class($col.javaAttName)(${col.javaAttClass} test$util.getDoNameCreator().attribute2class($col.javaAttName)) {
+		this.test$util.getDoNameCreator().attribute2class($col.javaAttName) = test$util.getDoNameCreator().attribute2class($col.javaAttName);
+	}
+
+	public void testFindBy$util.doNameCreator.attribute2class($col.javaAttName)() {
+		List<${jdoInfo.javaClassName}> list = dao.findBy$util.doNameCreator.attribute2class($col.javaAttName)(test$util.getDoNameCreator().attribute2class($col.javaAttName));
+		assertNotNull(list);
+		assertFalse(list.isEmpty());
+	}
+	
+#end
+#end
+#end
+#if ($isfk=="false" && $ispk=="false")
+	public ${col.javaAttClass} getTest$util.getDoNameCreator().attribute2class($col.javaAttName)() {
+		return test$util.getDoNameCreator().attribute2class($col.javaAttName);
+	}
+
+	public void setTest$util.getDoNameCreator().attribute2class($col.javaAttName)(${col.javaAttClass} test$util.getDoNameCreator().attribute2class($col.javaAttName)) {
+		this.test$util.getDoNameCreator().attribute2class($col.javaAttName) = test$util.getDoNameCreator().attribute2class($col.javaAttName);
+	}
+	
+	public void testFindBy$util.doNameCreator.attribute2class($col.javaAttName)() {
+		List<${jdoInfo.javaClassName}> list = dao.findBy$util.doNameCreator.attribute2class($col.javaAttName)(test$util.getDoNameCreator().attribute2class($col.javaAttName));
+		assertNotNull(list);
+		assertFalse(list.isEmpty());
+	}
+
+#else
+#if ($ispk=="true" && $isfk=="false")
+	public ${col.javaAttClass} getTest$util.getDoNameCreator().attribute2class($col.javaAttName)() {
+		return test$util.getDoNameCreator().attribute2class($col.javaAttName);
+	}
+
+	public void setTest$util.getDoNameCreator().attribute2class($col.javaAttName)(${col.javaAttClass} test$util.getDoNameCreator().attribute2class($col.javaAttName)) {
+		this.test$util.getDoNameCreator().attribute2class($col.javaAttName) = test$util.getDoNameCreator().attribute2class($col.javaAttName);
+	}
+	
+	public void testFindBy$util.doNameCreator.attribute2class($col.javaAttName)() {
+		List<${jdoInfo.javaClassName}> list = dao.findBy$util.doNameCreator.attribute2class($col.javaAttName)(test$util.getDoNameCreator().attribute2class($col.javaAttName));
+		assertNotNull(list);
+		assertFalse(list.isEmpty());
+	}
+#end
+#end	
+#end
+#else
+#foreach($col in ${jdoInfo.jdoColInfos})
+#set ($ispk="false")
+#foreach($colpk in ${jdoInfo.getPk()})
+#if ($colpk.col.equals($col.colName))
+#set ($ispk="true")
+#end
+#end
+#set ($isfk="false")
+#foreach($colfk in ${jdoInfo.getImportedFk()})
+#foreach($colfk2 in $colfk)
+#if($colfk2.getFkColumnName().equals($col.colName))
+#set ($isfk="true")
+	public ${col.javaAttClass} getTest$util.getDoNameCreator().attribute2class($col.javaAttName)() {
+		return test$util.getDoNameCreator().attribute2class($col.javaAttName);
+	}
+
+	public void setTest$util.getDoNameCreator().attribute2class($col.javaAttName)(${col.javaAttClass} test$util.getDoNameCreator().attribute2class($col.javaAttName)) {
+		this.test$util.getDoNameCreator().attribute2class($col.javaAttName) = test$util.getDoNameCreator().attribute2class($col.javaAttName);
+	}
+	
+	public void testFindBy$util.doNameCreator.attribute2class($col.javaAttName)() {
+		List<${jdoInfo.javaClassName}> list = dao.findBy$util.doNameCreator.attribute2class($col.javaAttName)(test$util.getDoNameCreator().attribute2class($col.javaAttName));
+		assertNotNull(list);
+		assertFalse(list.isEmpty());
+	}
+	
+#end
+#end
+#end
+#if ($ispk=="false" && $isfk=="false")
+	public ${col.javaAttClass} getTest$util.getDoNameCreator().attribute2class($col.javaAttName)() {
+		return test$util.getDoNameCreator().attribute2class($col.javaAttName);
+	}
+
+	public void setTest$util.getDoNameCreator().attribute2class($col.javaAttName)(${col.javaAttClass} test$util.getDoNameCreator().attribute2class($col.javaAttName)) {
+		this.test$util.getDoNameCreator().attribute2class($col.javaAttName) = test$util.getDoNameCreator().attribute2class($col.javaAttName);
+	}
+	
+	public void testFindBy$util.doNameCreator.attribute2class($col.javaAttName)() {
+		List<${jdoInfo.javaClassName}> list = dao.findBy$util.doNameCreator.attribute2class($col.javaAttName)(test$util.getDoNameCreator().attribute2class($col.javaAttName));
+		assertNotNull(list);
+		assertFalse(list.isEmpty());
+	}
+	
+#end
+#end
+#end
+
+}

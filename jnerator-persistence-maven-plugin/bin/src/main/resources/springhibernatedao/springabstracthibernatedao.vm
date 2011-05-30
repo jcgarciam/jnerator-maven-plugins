@@ -1,0 +1,33 @@
+package ${pckName}.hibernate;
+
+import ${pckName}.GenericDAO;
+import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.LockMode;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Example;
+
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+/**
+ * Generated at $date
+ *
+ * @author ${generatorVersion}
+ * @see http://www.hibernate.org/328.html
+ */
+public abstract class AbstractHibernateDAO<T, ID extends Serializable> extends HibernateDaoSupport implements GenericDAO<T, ID> {
+
+	private Class<T> persistentClass;
+
+	public AbstractHibernateDAO() {
+		this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+	}
+
+#parse("${ejb3daotemplatePath}/common-abstracthibernatedao.vm")
+}

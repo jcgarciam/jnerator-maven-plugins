@@ -22,8 +22,9 @@ public final class Constants {
 
 	public static final String VERSION = "v1.0.16";
 
-	public static final String GENERATOR_NAME = "Salto-db Generator "
-			+ Constants.VERSION;
+	public static final String GENERATOR_NAME = "Salto-db Generator -"
+		+Constants.VERSION
+		+"- forked as jnerator-persistence-maven-plugin";
 
 	private Constants() {
 

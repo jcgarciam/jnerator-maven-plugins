@@ -1,0 +1,189 @@
+package ${jdoInfo.javaPckName};
+
+import java.util.HashMap;
+
+import salto.fwk.dataobject.IDoDescription;
+
+/**
+ * Description of ${jdoInfo.javaClassName} corresponding to table ${jdoInfo.tableName} 
+ *
+ * @author salto-db-generator {generatorVersion}
+ */
+public class ${jdoInfo.javaClassName}Desc implements IDoDescription {
+	/**
+	 * Number of persisting columns
+	 */
+	public static final int NB_COL = ${util.getLength(${jdoInfo.jdoColInfos})};
+#foreach($col in ${jdoInfo.jdoColInfos})
+	/**
+	 * Mapping between ${col.javaAttCteName} and his ordinal number
+	 */
+	public static final int ${col.javaAttCteName} = ${velocityCount};
+#end
+	/**
+	 * Mapping between columns numbers and column names
+	 */
+	public static final HashMap name2num = new HashMap();
+	static {
+#foreach($col in ${jdoInfo.jdoColInfos})
+		name2num.put("$col.javaAttName", new Integer(${col.javaAttCteName}));
+#end
+	}
+	/**
+	 * Name of the Database Table
+	 */
+	public static final String TABLE_NAME = "${jdoInfo.tableName}";
+
+	/**
+	 * Columns names
+	 */
+	public static final String[] dbColName = new String[] {
+#foreach($col in ${jdoInfo.jdoColInfos})
+	#if ($velocityCount > 0),#end "${col.colName}".toUpperCase()
+#end
+	};
+	/**
+	 * Mapping between columns ordinal numbers and column names
+	 */
+	protected static final HashMap colBase;
+	static {
+		colBase = new HashMap(NB_COL);
+#foreach($col in ${jdoInfo.jdoColInfos})
+		colBase.put("${col.colName}".toUpperCase(), new Integer(${col.javaAttCteName}));
+#end
+	}
+
+	/**
+	 * Primary key columns names
+	 */
+	protected static final String[] PK_COL_NAME = new String[] {
+#foreach($col in ${jdoInfo.getPk()})
+	#if ($velocityCount > 0),#end "${col.col}"
+#end
+	};
+	/**
+	 * Primary key columns numbers
+	 */
+	protected static final int[] PK_COL_NUM = new int[] {
+#foreach($col in ${jdoInfo.getPk()})
+	#if ($velocityCount > 0),#end ${util.doNameCreator.dbName2javaCteName($col.col)}
+#end
+	};
+
+	/**
+	 * Columns size
+	 */
+	protected static final HashMap COL_LENGTH = new HashMap();
+	static {
+#foreach($col in ${jdoInfo.jdoColInfos})
+		COL_LENGTH.put("$col.javaAttName", new Integer($col.colSize));
+#end
+	}
+	/**
+	 * Number of decimals for numbers
+	 */
+	protected static final HashMap DEC_LENGTH = new HashMap();
+	static {
+#foreach($col in ${jdoInfo.jdoColInfos})
+		DEC_LENGTH.put("$col.javaAttName", new Integer($col.decDigit));
+#end
+	}
+
+	/**
+	 * Foreign Key
+	 */
+	protected static final HashMap FK_COL_NAME = new HashMap(${util.getLength(${jdoInfo.getFK()})});
+#if (${util.getLength(${jdoInfo.getFK()})} > 0)
+	static {
+#foreach($col in ${jdoInfo.exportedFk})
+#foreach($col2 in $col)
+		#if ($velocityCount == 0)FK_COL_NAME.put("$col2.fkTableName",new String[] {#end #if ($velocityCount > 0) ,#end "${col2.pkColumnName}"
+#end
+	});
+#end
+#foreach($col in ${jdoInfo.importedFk})
+	#foreach($col2 in $col)
+		#if ($velocityCount == 0)FK_COL_NAME.put("$col2.pkTableName",new String[] {#end #if ($velocityCount > 0) ,#end "${col2.fkColumnName}"
+	#end
+	});
+#end
+}
+#end
+
+	/**
+	 * Foreign Key
+	 */
+	protected static final HashMap FK_COL_NUM = new HashMap(${util.getLength(${jdoInfo.getFK()})});
+#if (${util.getLength(${jdoInfo.getFK()})} > 0)
+	static {
+#foreach($col in ${jdoInfo.exportedFk})
+#foreach($col2 in $col)
+		#if ($velocityCount == 0)FK_COL_NUM.put("$col2.fkTableName",new int[] {#end #if ($velocityCount > 0) ,#end ${util.doNameCreator.dbName2javaCteName(${col2.pkColumnName})}
+#end
+	});
+#end
+#foreach($col in ${jdoInfo.importedFk})
+	#foreach($col2 in $col)
+		#if ($velocityCount == 0)FK_COL_NUM.put("$col2.pkTableName",new int[] {#end #if ($velocityCount > 0) ,#end ${util.doNameCreator.dbName2javaCteName(${col2.fkColumnName})}
+	#end
+	});
+#end
+}
+#end
+	/**
+	 * @see IDoDescription\#getNum4Name()
+	 */
+	public HashMap getNum4Name() {
+		 return name2num;
+	}
+	/**
+	 * @see IDoDescription\#getNum4Name(String)
+	 */
+	public int getNum4Name(String name) {
+		 return ((Integer) name2num.get(name)).intValue();
+	}
+	
+	/**
+	 * @see IDoDescription\#getTableName()
+	 */
+	public String getTableName() {
+		 return TABLE_NAME;
+	}
+
+	/**
+	 * @see IDoDescription\#getDbColName()
+	 */
+	public String[] getDbColName() {
+		 return dbColName;
+	}
+	/**
+	 * @see IDoDescription\#getDbColNum()
+	 */
+	public HashMap getDbColNum() {
+		return colBase;
+	}
+	/**
+	 * @see IDoDescription\#getPkColName()
+	 */
+	public String[] getPkColName() {
+		 return PK_COL_NAME;
+	}
+	/**
+	 * @see IDoDescription\#getPkColNum()
+	 */
+	public int[] getPkColNum() {
+		 return PK_COL_NUM;
+	}
+	/**
+	 * @see IDoDescription\#getFkColName()
+	 */
+	public String[] getFkColName(String tableName) {
+		 return (String[]) FK_COL_NAME.get(tableName);
+	}
+	/**
+	 * @see IDoDescription\#getFkColNum()
+	 */
+	public int[] getFkColNum(String tableName) {
+		 return (int[]) FK_COL_NUM.get(tableName);
+	}
+}

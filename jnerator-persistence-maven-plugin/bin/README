@@ -1,0 +1,28 @@
+This plugin can be execute by using:
+  mvn jnerator-persistence:generate
+
+Artifacts will be generated under src/main/jnerator-persistence, after generation you will need to include those in your build process 
+by using build-helper:add-source from the Build Helper Maven Plugin (see http://mojo.codehaus.org/build-helper-maven-plugin/) in your pom 
+
+
+To include this plugin, define the following section in your pom.xml
+...
+<plugin>
+	<groupId>com.jnerator.persistence</groupId>
+	<artifactId>jnerator-persistence-maven-plugin</artifactId>
+
+	<configuration>
+		<jdbcUrl>jdbc:mysql://localhost/demo</jdbcUrl>
+		<driverClassName>com.mysql.jdbc.Driver</driverClassName>
+		<login>demo</login>
+		<password>demo</password>
+	</configuration>
+	<dependencies>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.14</version>
+		</dependency>
+	</dependencies>
+</plugin>
+...

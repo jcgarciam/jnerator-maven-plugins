@@ -1,0 +1,167 @@
+package ${jdoInfo.javaPckName};
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Arrays;
+import java.sql.Timestamp;
+import java.sql.Types;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javax.servlet.http.HttpServletRequest;
+
+import salto.fwk.dataobject.*;
+import salto.fwk.exception.*;
+import salto.fwk.dataobject.helper.*;
+
+/**
+ * Generated class.
+ * Table : ${jdoInfo.tableName}
+ * Schema : ${jdoInfo.tableShem}
+ * 
+ * ${jdoInfo.getTableRemarks()}
+ * 
+ * @author salto-db-generator ${generatorVersion}
+ */
+public class ${jdoInfo.javaClassName} implements DataObject {
+/************************************************************************
+	INTERNAL ATTRIBUTES FOR PERSISTENCE
+ ************************************************************************/
+	/**
+	 * Object persistence description
+	 */
+	private static final IDoDescription description = new ${jdoInfo.javaClassName}Desc();
+	
+	/**
+	 * Number of persistent columns
+	 */
+#set( $colInfos = ${jdoInfo.jdoColInfos})
+	private static final int NB_COL = ${util.getLength($colInfos)};
+	
+	/**
+	 * persistence type (PERSIST_UPDATE_INSERT,PERSIST_UPDATE,PERSIST_INSERT,PERSIST_DELETE,PERSIST_NONE)
+	 */
+	private transient int persist = PERSIST_UPDATE_INSERT;
+	
+	/**
+	 * columns states (0 : not updated, any other value : updated)
+	 */
+	private transient int[] updCol = new int[NB_COL];
+
+	/**
+	 * tables names	
+	 */
+	private static final String[] tableNames = new String[] {"${jdoInfo.tableName}"};
+	
+	/**
+	 * columns that should not be inserted (i.e. autoincrement)
+	 */
+	protected static HashSet colNotInsertable;
+	
+#set($incrs = ${jdoInfo.autoIncrementCols})
+
+	#if (${incrs.size()} > 0) 
+	static {
+		colNotInsertable = new HashSet();
+		#foreach($incr in $incrs)
+		colNotInsertable.add("${incr.colName}".toUpperCase());
+		#end
+	}
+	#end
+	
+/************************************************************************
+	TABLE ATTRIBUTES
+ ************************************************************************/
+#parse("${templatePath}/variable.vm")
+		
+	/**
+	* Constructor used by the setPropertie method.
+	*/
+	public ${jdoInfo.javaClassName}() { }
+	
+	/**
+	* Constructeur with persistence initialization
+	* @param persistTyp le type de persistance (PERSIST_UPDATE_INSERT,PERSIST_UPDATE,PERSIST_INSERT,PERSIST_DELETE,PERSIST_NONE)
+	*/
+	public ${jdoInfo.javaClassName}(int persistTyp) {
+		persist = persistTyp;
+	}
+	
+	/**
+	* Constructor from an existing object.
+	* Persistence informations are reset.
+	* @param arg Object to clone
+	*/
+	public ${jdoInfo.javaClassName}(${jdoInfo.javaClassName} arg) {
+#foreach ($col in ${jdoInfo.jdoColInfos})
+		this.${col.javaAttName} = arg.${col.javaAttName};
+#end
+	}
+	
+	/**
+	 * @see DataObject\#getDescription()
+	 */
+	public IDoDescription getDescription() {
+		return description;
+	}
+	
+	/**
+	 * @see DataObject\#getUpdateCol()
+	 */
+	public int[] getUpdateCol() {
+		return updCol;
+	}
+	
+#parse("${templatePath}/setter.vm")
+	
+#parse("${templatePath}/universalSetter.vm")
+	
+	/**
+	 * Return the current persistence type
+	 * @return One of PERSIST_UPDATE_INSERT,PERSIST_UPDATE,PERSIST_INSERT,PERSIST_DELETE,PERSIST_NONE
+	 */
+	public int getPersist() {
+		return persist;
+	}
+	
+ 	/**
+	 * @see DataObject\#setPersist(int)
+	 */
+	public void setPersist(int newPersist) {
+		persist = newPersist;
+	}
+	
+	/**
+	 * @see DataObject\#resetUpdate()
+	 */
+	public void resetUpdate() {
+		Arrays.fill(updCol, -1);
+	}
+	
+	/**
+	 * @see DataObject\#getColNotInsertable()
+	 */
+	public HashSet getColNotInsertable() {
+		return colNotInsertable;
+	}
+	
+#parse("${templatePath}/getProperty.vm")
+
+#parse("${templatePath}/setProperty.vm")
+	
+#parse("${templatePath}/setParameters.vm")
+
+#parse("${templatePath}/equals.vm")
+
+#parse("${templatePath}/clone.vm")
+
+	/**
+	 * @see DataObject\#addChild(DataObject)
+	 */
+	public void addChild(DataObject doChild) {
+		// TODO Auto-generated method stub
+	}
+} 

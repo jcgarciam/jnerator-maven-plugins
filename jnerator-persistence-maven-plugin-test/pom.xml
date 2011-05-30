@@ -24,7 +24,7 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>3.5.6-Final</version>
-		</dependency>		
+		</dependency>
 	</dependencies>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -32,14 +32,33 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src/main/jnerator-persistence</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>com.jnerator.persistence</groupId>
 				<artifactId>jnerator-persistence-maven-plugin</artifactId>
 
 				<configuration>
-					<jdbcUrl>jdbc:mysql://localhost/e360db</jdbcUrl>
+					<jdbcUrl>jdbc:mysql://localhost/demo</jdbcUrl>
 					<driverClassName>com.mysql.jdbc.Driver</driverClassName>
-					<login>e360</login>
-					<password>e360</password>
+					<login>demo</login>
+					<password>demo</password>
 				</configuration>
 				<dependencies>
 					<dependency>

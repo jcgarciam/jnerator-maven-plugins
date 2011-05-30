@@ -1,0 +1,19 @@
+	/**
+	 * @see DataObject\#setProperty(SqlArg)
+	 */
+	public DataObject setProperty(SqlArg sqlArg) throws SQLException {
+		return setProperty(sqlArg, getInstance()); 
+	} 
+	/**
+	 * @see DataObject\#setProperty(SqlArg)
+	 */
+	protected static DataObject setProperty(SqlArg sqlArg, ${jdoInfo.javaClassName} data) throws SQLException {
+		ResultSet rs = sqlArg.getResultSet();
+		int[] val = sqlArg.getVal();
+#foreach($col in $jdoInfo.jdoColInfos)	
+		if (val[${jdoInfo.javaClassName}Desc.${col.javaAttCteName}] != -1) {
+			data.${col.javaAttName} = DataObjectUtil.${util.getMethod($col)}(rs, val[${jdoInfo.javaClassName}Desc.${col.javaAttCteName}]);
+		}
+#end
+	 	return data;
+	}

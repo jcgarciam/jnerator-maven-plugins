@@ -1,0 +1,62 @@
+package ${jdoInfo.javaPckName};
+
+import java.util.List;
+import java.sql.Timestamp;
+
+import ${jdoInfo.javaPckName}.pojo.${jdoInfo.javaClassName};
+#if ($util.getLength($jdoInfo.getPk()) > 1)
+import ${jdoInfo.javaPckName}.pojo.${jdoInfo.javaClassName}.${jdoInfo.javaClassName}PK;
+#end
+#set ($pk="Long")
+#foreach($col in ${jdoInfo.jdoColInfos})
+#foreach($colpk in ${jdoInfo.getPk()})
+#if ($colpk.col.equals($col.colName))
+#set ($pk=$util.getClassNameForPrimitive($col.javaAttClass))
+#end
+#end
+#end
+#if ($util.getLength($jdoInfo.getPk()) > 1)
+#set ($pk="${jdoInfo.javaClassName}PK")
+#end
+/**
+ * <p>Generic DAO layer for ${jdoInfo.javaClassName}s</p>
+ * <p>Generated at $date</p>
+ *
+ * @author ${generatorVersion}
+ * @see http://www.hibernate.org/328.html
+ */
+public interface ${jdoInfo.javaClassName}DAO extends GenericDAO<${jdoInfo.javaClassName},$pk> {
+
+	/*
+	 * TODO : Add specific businesses daos here.
+	 * These methods will be overwrited if you re-generate this interface.
+	 * You might want to extend this interface and to change the dao factory to return 
+	 * an instance of the new implemenation in build${jdoInfo.javaClassName}DAO()
+	 */
+	  	 
+#if ($util.getLength($jdoInfo.getPk()) > 1)
+#foreach($col in ${jdoInfo.jdoColInfos})
+	/**
+	 * Find ${jdoInfo.javaClassName} by ${col.javaAttName}
+	 */
+	public List<${jdoInfo.javaClassName}> findBy$util.doNameCreator.attribute2class($col.javaAttName)($col.getNonPrimitifClass() ${col.javaAttName});
+
+#end
+#else
+#foreach($col in ${jdoInfo.jdoColInfos})
+#set ($ispk="false")
+#foreach($colpk in ${jdoInfo.getPk()})
+#if ($colpk.col.equals($col.colName))
+#set ($ispk="true")
+#end
+#end
+#if ($ispk=="false")
+	/**
+	 * Find ${jdoInfo.javaClassName} by ${col.javaAttName}
+	 */
+	public List<${jdoInfo.javaClassName}> findBy$util.doNameCreator.attribute2class($col.javaAttName)($col.getNonPrimitifClass() ${col.javaAttName});
+
+#end
+#end
+#end
+}

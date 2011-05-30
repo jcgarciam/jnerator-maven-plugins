@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MenuConfig>
+    <Displayers>
+        <Displayer name="Velocity" type="net.sf.navigator.displayer.VelocityMenuDisplayer"/>
+    </Displayers>
+    <Menus>
+    
+#foreach($jdoInfo in ${jdoInfos})		
+		<Menu name="${jdoInfo.javaClassName}" title="menu.${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}.title">
+			<Item name="${jdoInfo.javaClassName}List" title="${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}List.title" page="/list${jdoInfo.javaClassName}.html"/>
+			<Item name="${jdoInfo.javaClassName}Search" title="menu.search.${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}List.title" page="/search${jdoInfo.javaClassName}.html"/>
+			<Item name="${jdoInfo.javaClassName}Add" title="menu.add.title" page="/add${jdoInfo.javaClassName}.html"/>
+		</Menu>		
+			
+#end	
+    </Menus>
+</MenuConfig>

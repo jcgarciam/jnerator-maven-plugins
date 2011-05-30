@@ -1,0 +1,26 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+
+	<!-- You need to complete the configuration here. This is just a sample, you should use a connection pool -->
+	<property name="connection.url">jdbc:mysql://localhost/demo</property>
+	<property name="connection.username">demo</property>
+	<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+	<!-- Your database is MySQL 5.1 -->
+	<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+	<!-- You can also use org.hibernate.dialect.MySQL5InnoDBDialect if all your tables are InnoDBs.-->
+	
+	<property name="connection.password">demo</property>
+	<property name="show_sql">true</property>
+	
+	<!-- Remove this property if you use JTA -->
+	<property name="current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>
+		
+	<mapping class="com.jnerator.persistence.persistence.pojo.Contact" />
+	<mapping class="com.jnerator.persistence.persistence.pojo.Address" />
+
+	</session-factory>
+</hibernate-configuration>

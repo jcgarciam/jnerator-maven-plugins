@@ -1,0 +1,189 @@
+#set( $sprimarykeydone = "false" )
+#foreach($col in ${jdoInfo.jdoColInfos})
+#set( $done = "false" )
+#if ($util.getLength(${jdoInfo.getImportedFk()}) > 0)
+#foreach($colfk in ${jdoInfo.getImportedFk()})
+#foreach($colfk2 in $colfk)
+#if($colfk2.getFkColumnName().equals($col.colName))
+#set( $bdone = "false" )	
+#if ($util.getLength($jdoInfo.getPk()) > 1)
+#foreach($colpk in ${jdoInfo.getPk()})
+#if ($colpk.col.equals($col.colName))
+#set( $bdone = "true" )	
+#end
+#end
+#end
+#if ($bdone=="false")
+#set ($done= "$fks.add($colfk2.fkName)" )
+#if ($done == "true")
+	/**
+	 * get ${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getPkTableName()))}
+	 */
+#if ($annotations=="true")
+	@ManyToOne
+#end
+#if ($annotations=="true")
+#if ($util.getLength($colfk) > 1)
+	@JoinColumns({
+#set ($i=1)
+#foreach($colfk3 in $colfk)
+#if ($i == $util.getLength($colfk))
+	 	@JoinColumn(name = "$colfk3.getFkColumnName()", referencedColumnName = "$colfk3.getPkColumnName()")
+#else
+		@JoinColumn(name = "$colfk3.getFkColumnName()", referencedColumnName = "$colfk3.getPkColumnName()"),
+#end
+#set ($i = $i+1)
+#end
+	})
+#else
+	@JoinColumn(name = "$col.colName")
+#end
+#foreach($colpk in ${jdoInfo.getPk()})
+#if ($colpk.col.equals($col.colName))
+	@Id
+#end
+#end
+#end
+	public ${util.DoNameCreator.createDoName($colfk2.getPkTableName())} get${util.DoNameCreator.createDoName($colfk2.getPkTableName())}() {
+		return this.${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getPkTableName()))};
+	}
+	
+	/**
+	 * set ${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getPkTableName()))}
+	 */
+	public void set${util.DoNameCreator.createDoName($colfk2.getPkTableName())}(${util.DoNameCreator.createDoName($colfk2.getPkTableName())} ${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getPkTableName()))}) {
+		this.${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getPkTableName()))} = ${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getPkTableName()))};
+	}
+
+#end
+#set( $done = "true" )
+#end
+#end
+#end
+#end
+#end
+#if ($done=="false")
+#if ($util.getLength($jdoInfo.getPk()) > 1)
+#foreach($colpk in ${jdoInfo.getPk()})
+#if ($colpk.col.equals($col.colName))
+#if ($sprimarykeydone=="false")
+	/**
+	 * Get the primary key
+	 */
+#if ($annotations=="true")
+	@Basic
+	@Id
+#end
+	public ${jdoInfo.javaClassName}PK get${jdoInfo.javaClassName}PK() {
+		return this.${util.DoNameCreator.class2attribute($jdoInfo.javaClassName)}PK;
+	}
+	
+	/**
+	 * set the primary key
+	 */
+	public void set${jdoInfo.javaClassName}PK(${jdoInfo.javaClassName}PK ${util.DoNameCreator.class2attribute($jdoInfo.javaClassName)}PK) {
+		this.${util.DoNameCreator.class2attribute($jdoInfo.javaClassName)}PK = ${util.DoNameCreator.class2attribute($jdoInfo.javaClassName)}PK;
+	}
+
+#set( $sprimarykeydone = "true" )
+#end
+
+		
+#set( $done = "true" )	
+#end
+#end
+#end
+#end
+#if ($done=="false")
+	/**
+#if (${col.colRemarks})
+	 * <p>${col.colRemarks} 
+	 * </p>
+#end
+	 * @return ${col.javaAttName}
+	 */
+#if ($annotations=="true")
+	@Basic
+#foreach($colpk in ${jdoInfo.getPk()})
+#if ($colpk.col.equals($col.colName))
+	@Id
+#end
+#end
+#if (${col.isAutoIncrement()})
+	@GeneratedValue
+#end
+#if ($col.getNonPrimitifClass()=="String")
+	@Column(name = "$col.colName", length = $col.colSize)
+	#else
+	@Column(name = "$col.colName")
+	#end
+#end
+	public $col.getNonPrimitifClass() ${col.getterMethod()}() {
+		return ${col.javaAttName};
+	}
+
+	/**
+	 * @param ${col.javaAttName} new value for ${col.javaAttName} 
+	 */
+	public void ${col.setterMethod()}(${col.getNonPrimitifClass()} ${col.javaAttName}) {
+		this.${col.javaAttName} = ${col.javaAttName};
+	}
+	
+#end
+#end
+#foreach($colfk in ${jdoInfo.getExportedFk()})
+#set ($fkdone="false")
+#if ($util.getLength($colfk) > 1)
+#foreach($colfk2 in $colfk)
+#if ($fkdone=="false")
+	/**
+	 * Get the list of $util.DoNameCreator.createDoName($colfk2.getFkTableName())
+	 */
+#if ($annotations=="true")
+	 @OneToMany
+	 @JoinColumns({
+#set ($i=1)
+#foreach($colfk3 in $colfk)
+#if ($i == $util.getLength($colfk))
+	 	@JoinColumn(name = "$colfk3.getFkColumnName()", referencedColumnName = "$colfk3.getPkColumnName()")
+#else
+		@JoinColumn(name = "$colfk3.getFkColumnName()", referencedColumnName = "$colfk3.getPkColumnName()"),
+#end
+#set ($i = $i+1)
+#end
+	 })
+#end
+	 public List<$util.DoNameCreator.createDoName($colfk2.getFkTableName())> get$util.DoNameCreator.createDoName($colfk2.getFkTableName())s() {
+	 	return this.${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getFkTableName()))}s;
+	 }
+	 
+	/**
+	 * Set the list of $util.DoNameCreator.createDoName($colfk2.getFkTableName())
+	 */
+	 public void set$util.DoNameCreator.createDoName($colfk2.getFkTableName())s(List<$util.DoNameCreator.createDoName($colfk2.getFkTableName())> ${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getFkTableName()))}s) {
+	 	this.${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getFkTableName()))}s = ${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getFkTableName()))}s;
+	 }
+#set ($fkdone="true")
+#end
+#end
+#else
+#foreach($colfk2 in $colfk)
+	/**
+	 * Get the list of $util.DoNameCreator.createDoName($colfk2.getFkTableName())
+	 */
+#if ($annotations=="true")
+	 @OneToMany(mappedBy="${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($jdoInfo.tableName))}")
+#end
+	 public List<$util.DoNameCreator.createDoName($colfk2.getFkTableName())> get$util.DoNameCreator.createDoName($colfk2.getFkTableName())s() {
+	 	return this.${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getFkTableName()))}s;
+	 }
+	 
+	/**
+	 * Set the list of $util.DoNameCreator.createDoName($colfk2.getFkTableName())
+	 */
+	 public void set$util.DoNameCreator.createDoName($colfk2.getFkTableName())s(List<$util.DoNameCreator.createDoName($colfk2.getFkTableName())> ${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getFkTableName()))}s) {
+	 	this.${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getFkTableName()))}s = ${util.DoNameCreator.class2attribute($util.DoNameCreator.createDoName($colfk2.getFkTableName()))}s;
+	 }
+#end
+#end
+#end

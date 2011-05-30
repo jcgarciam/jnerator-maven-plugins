@@ -1,0 +1,47 @@
+package ${pckName}.hibernate;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+#if ($annotations=="true")
+import org.hibernate.cfg.AnnotationConfiguration;
+#else
+import org.hibernate.cfg.Configuration;
+#end
+
+/**
+ * Generated at $date
+ *
+ * @author ${generatorVersion}
+ */
+public final class HibernateUtil {
+
+	private static SessionFactory sessionFactory;
+
+	static {
+		try {
+#if ($annotations=="true")	
+			sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+#else
+			sessionFactory = new Configuration().configure().buildSessionFactory();		
+#end
+		} catch (Throwable ex) {
+
+			throw new ExceptionInInitializerError(ex);
+		}
+	}
+
+	private HibernateUtil() {
+
+	}
+
+	/**
+	 * Returns the SessionFactory used for this static class.
+	 * 
+	 * @return SessionFactory
+	 */
+	public static SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+}

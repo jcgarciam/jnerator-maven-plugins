@@ -1,0 +1,9 @@
+#foreach($col in ${jdoInfo.jdoColInfos})
+	/**
+	 * $col.javaAttName attribute
+	 * sql type : ${col.typName}(${col.colSize},${col.decDigit})
+	 */
+	protected $col.javaAttClass $col.javaAttName;
+	
+#end
+

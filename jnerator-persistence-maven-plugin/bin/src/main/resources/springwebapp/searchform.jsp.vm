@@ -1,0 +1,36 @@
+<%@ include file="/common/taglibs.jsp"%>
+#if ($util.getLength($jdoInfo.pk) > 0)
+#foreach($pk in $jdoInfo.pk)
+#set ($pkEntry="${pk.javaAttName}")
+#end
+#end
+	<head>
+		<title><fmt:message key="menu.search.${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}List.title"/></title>
+	    <content tag="heading"><fmt:message key="menu.search.${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}List.title"/></content>
+	    <meta name="menu" content="${jdoInfo.javaClassName}"/>
+	</head>
+
+<fieldset>
+		<form:form commandName="${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}" action="search${jdoInfo.javaClassName}.html" method="post">
+			<ul>
+#foreach($col in ${jdoInfo.nonFKColInfos})
+				<li><label class="desc" for="${col.javaAttName}">${col.javaAttName}</label><form:errors path="${col.javaAttName}" /><span><form:input cssClass="text medium" path="${col.javaAttName}" id="${col.javaAttName}"/></span></li>
+#end
+#foreach($colfk in ${jdoInfo.getImportedFk()})
+#foreach($colfk2 in $colfk)
+				<li><label class="desc" for="${util.DoNameCreator.class2attribute(${colfk2.pkJavaClassName})}">${util.DoNameCreator.class2attribute(${colfk2.pkJavaClassName})}</label>
+					<form:errors path="${util.DoNameCreator.class2attribute(${colfk2.pkJavaClassName})}" />
+					<span>
+						<form:select path="${util.DoNameCreator.class2attribute(${colfk2.pkJavaClassName})}" id="${util.DoNameCreator.class2attribute(${colfk2.pkJavaClassName})}">
+							<!-- I don't see any way to know which column should be displayed to the user, so you need to do the job yourself here... -->
+							<form:options items="${${colfk2.pkJavaClassName}s}" itemValue="${colfk2.pkJavaAttName}" itemLabel="${colfk2.pkJavaAttName}"/>
+						</form:select>
+					</span>
+				</li>		
+#end
+#end
+				<li id="buttons"><input class="button" type="submit" name="search" value="Search" /></li>
+			</ul>	
+		</form:form>
+</fieldset>
+<%@ include file="${util.DoNameCreator.class2attribute(${jdoInfo.javaClassName})}EmList.jsp" %>

@@ -1,0 +1,12 @@
+	/**
+	 * Return another instance of the Object with attribute set to the same value.
+	 * Persitences informations are not copied.
+	 * @return a new ${jdoInfo.javaClassName} instance with attribute set to sames values as the object.
+	 */
+	public Object clone() {
+		${jdoInfo.javaClassName} clone = new ${jdoInfo.javaClassName}();
+#foreach($col in ${jdoInfo.jdoColInfos})
+		clone.${col.javaAttName} = ${col.javaAttName};
+#end
+		return clone;
+	}
