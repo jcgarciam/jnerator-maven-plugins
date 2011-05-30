@@ -24,5 +24,7 @@
 	<plugin class="com.jnerator.persistence.db.plugin.PojoHibernateDAOPlugin" />
 	<plugin class="com.jnerator.persistence.db.plugin.SpringEJB3AndHibernateDAOPlugin" />
 	<plugin class="com.jnerator.persistence.db.plugin.SpringEJB3AndHibernateDAOAndTestCasesPlugin" />
-	<plugin class="com.jnerator.persistence.db.plugin.SpringWebappPlugin" />
+	<!--
+	 <plugin class="com.jnerator.persistence.db.plugin.SpringWebappPlugin" />
+	 -->
 </plugins>

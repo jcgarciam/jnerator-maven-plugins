@@ -1,0 +1,24 @@
+This plugin can be execute by using:
+  mvn jnerator-persistence:generate
+i.e:
+                        ...
+			<plugin>
+				<groupId>com.jnerator.persistence</groupId>
+				<artifactId>jnerator-persistence-maven-plugin</artifactId>
+
+				<configuration>
+					<jdbcUrl>jdbc:mysql://localhost/demo</jdbcUrl>
+					<driverClassName>com.mysql.jdbc.Driver</driverClassName>
+					<login>demo</login>
+					<password>demo</password>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>5.1.14</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+                       ...
+

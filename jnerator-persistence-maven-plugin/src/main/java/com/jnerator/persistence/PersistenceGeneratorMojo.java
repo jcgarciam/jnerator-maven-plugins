@@ -14,7 +14,10 @@
 
 package com.jnerator.persistence;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.apache.maven.plugin.AbstractMojo;
@@ -35,6 +39,8 @@ import com.jnerator.persistence.tool.jdo.data.JdoInfo;
 import com.jnerator.persistence.tool.sql.ConnectionInfo;
 import com.jnerator.persistence.tool.sql.DatabaseInfo;
 import com.jnerator.persistence.tool.sql.data.TableInfo;
+import java.util.Scanner;
+import java.util.Map.Entry;
 
 /**
  * Generate persistence layer code based on the specified plugin
@@ -47,7 +53,7 @@ public class PersistenceGeneratorMojo extends AbstractMojo {
     /**
      * Location of the generated persistence artifacts.
      * 
-     * @parameter expression="${basedir}/src/main/persistence-generator/"
+     * @parameter expression="${basedir}/src/main/jnerator-persistence/"
      *            alias="outputDirectory"
      * @required
      */
@@ -171,7 +177,7 @@ public class PersistenceGeneratorMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         getLog().info("Salto-DB ANT Generator - Salto Consulting");
         getLog().info("Generating artifacts in: " + outputDirectory);
-        listPlugins();
+        listPluginsAndSelectOne();
         Connection defaultConn = null;
 
         try {
@@ -281,13 +287,46 @@ public class PersistenceGeneratorMojo extends AbstractMojo {
         }
     }
 
-    public void listPlugins() {
+    public void listPluginsAndSelectOne() throws MojoExecutionException{
         getLog().info("-----------------------------------------");
         getLog().info("Loaded Plugins : ");
-        for (Iterator i = Plugins.getInstance().getPlugins().entrySet().iterator(); i.hasNext();) {
-            Map.Entry entry = (Map.Entry) i.next();
-            getLog().info((String) entry.getKey());
+        List<Entry<String, String>> pList = new ArrayList<Entry<String, String>>(Plugins.getInstance().getPlugins().entrySet());
+        for (int idx = 0; idx < pList.size();idx++) {
+        	Entry<String, String> entry = pList.get(idx);
+            getLog().info(idx + ") " + entry.getKey());
         }
         getLog().info("-----------------------------------------");
+        getLog().info("Choose one or hit enter to use default (default is '"+plugin+"'):");
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        try{
+        	while(true){
+        		String tmp = reader.readLine();
+        		if(tmp != null && "".equals(tmp.trim())){
+        			break;
+        		}else {
+        			if(tmp != null){
+        				int opt = Integer.MIN_VALUE;
+        				try{
+        					opt = Integer.parseInt(tmp);
+        					if(opt >= 0 && opt <= pList.size()){
+        						Entry<String, String> entry = pList.get(opt); 
+        						plugin = entry.getKey();
+        						break;
+        					}
+        				}catch(Exception e){}
+        			}
+        		}
+        	}
+        	getLog().info("You have selected: "+ plugin);
+    	}catch(Exception e){
+    		throw new MojoExecutionException("Error reading user inputs.", e);
+    	}
+    	finally{
+        	try{
+        		reader.close();
+        	}catch(Exception e){getLog().error("Error closing reader.",e);}
+        }
+
     }
 }
