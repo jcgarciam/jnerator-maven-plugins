@@ -5,6 +5,7 @@ Artifacts will be generated under src/main/jnerator-persistence, after generatio
 by using build-helper:add-source from the Build Helper Maven Plugin (see http://mojo.codehaus.org/build-helper-maven-plugin/) in your pom 
 
 To include the jnerator-persistence plugin, define the following section in your pom.xml
+
 ...
 <plugin>
 	<groupId>com.jnerator.persistence</groupId>
